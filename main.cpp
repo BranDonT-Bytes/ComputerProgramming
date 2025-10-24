@@ -1,6 +1,6 @@
-// main.cpp
-#include "bank.h"
+#include "Bank.h"
 #include <iostream>
+#include <string>
 
 int main() {
     Bank bank;
@@ -16,12 +16,14 @@ int main() {
         std::cout << "3. Withdraw\n";
         std::cout << "4. Display Client Info\n";
         std::cout << "5. Display All Clients\n";
+        std::cout << "6. Load Clients from File\n";
+        std::cout << "7. Save Clients to File\n";
         std::cout << "0. Exit\n";
         std::cout << "Enter choice: ";
         std::cin >> choice;
 
         switch (choice) {
-            case 1:
+            case 1: // Add new client
                 std::cout << "Enter name: ";
                 std::cin >> name;
                 std::cout << "Enter SSN: ";
@@ -33,31 +35,51 @@ int main() {
                 bank.addClient(name, ssn, acc, balance);
                 break;
 
-            case 2:
+            case 2: // Deposit
                 std::cout << "Enter Account #: ";
                 std::cin >> acc;
                 std::cout << "Enter amount to deposit: ";
                 std::cin >> amount;
-                bank.deposit(acc, amount);
+                balance = bank.deposit(acc, amount);
+                std::cout << "Updated balance: " << balance << "\n";
                 break;
 
-            case 3:
+            case 3: // Withdraw
                 std::cout << "Enter Account #: ";
                 std::cin >> acc;
                 std::cout << "Enter amount to withdraw: ";
                 std::cin >> amount;
-                bank.withdraw(acc, amount);
+                balance = bank.withdraw(acc, amount);
+                std::cout << "Updated balance: " << balance << "\n";
                 break;
 
-            case 4:
+            case 4: // Display single client info
                 std::cout << "Enter Account #: ";
                 std::cin >> acc;
                 bank.displayClient(acc);
                 break;
 
-            case 5:
+            case 5: // Display all clients
                 bank.displayAllClients();
                 break;
+
+            case 6: // Load clients from file
+            {
+                std::string filename;
+                std::cout << "Enter filename: ";
+                std::cin >> filename;
+                bank.load_clients_info(filename);
+                break;
+            }
+
+            case 7: // Save clients to file
+            {
+                std::string filename;
+                std::cout << "Enter filename: ";
+                std::cin >> filename;
+                bank.saving_info(filename);
+                break;
+            }
 
             case 0:
                 std::cout << "Exiting...\n";
@@ -70,3 +92,4 @@ int main() {
 
     return 0;
 }
+
